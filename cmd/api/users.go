@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"interviewTask/internal/authentication"
 	"interviewTask/internal/data"
 	"interviewTask/internal/validator"
@@ -118,9 +119,9 @@ func (app *application) LoginUser(w http.ResponseWriter, r *http.Request) {
 
 func (app *application) GetPurchaseHistory(w http.ResponseWriter, r *http.Request) {
 	// Retrieve the authenticated user ID from the request context.
-	userID, ok := r.Context().Value("userID").(int64)
+	userID, ok := r.Context().Value(userContextKey).(int64)
 	if !ok {
-		app.errorResponse(w, r, http.StatusUnauthorized, "unauthenticated")
+		app.invalidCredentialsResponse(w, r)
 		return
 	}
 
@@ -161,8 +162,9 @@ func (app application) BuyProducts(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Retrieve the authenticated user ID.
-	userID, ok := r.Context().Value("userID").(int64)
+	userID, ok := r.Context().Value(userContextKey).(int64)
 	if !ok {
+		app.logger.PrintInfo(fmt.Sprintf("user is now is : %s", userID), nil)
 		app.invalidCredentialsResponse(w, r)
 		return
 	}
@@ -177,7 +179,7 @@ func (app application) BuyProducts(w http.ResponseWriter, r *http.Request) {
 	for _, p := range input.Products {
 		product, err := app.models.Product.GetByID(p.ID)
 		if err != nil {
-			app.serverErrorResponse(w, r, err)
+			app.errorResponse(w, r, http.StatusInternalServerError, "there is no product yet in the db")
 			return
 		}
 

@@ -23,7 +23,7 @@ func (app *application) routes() http.Handler {
 	//  public routes
 	router.HandlerFunc(http.MethodPost, "/user/signup", app.SignUpUser)
 	router.HandlerFunc(http.MethodPost, "/user/login", app.LoginUser)
-	router.HandlerFunc(http.MethodGet, "/user/products", app.ListProducts) // not tested yet
+	router.HandlerFunc(http.MethodGet, "/user/products", app.ListProducts)
 
 	//  stripe callback
 	router.HandlerFunc(http.MethodPost, "/stripe/webhook", app.stripeWebhookHandler)
@@ -31,7 +31,8 @@ func (app *application) routes() http.Handler {
 	// require authentication.
 	router.Handler(http.MethodPost, "/user/credit-card", authChain.Then(http.HandlerFunc(app.AddCreditCard)))
 	router.Handler(http.MethodDelete, "/user/credit-card", authChain.Then(http.HandlerFunc(app.DeleteCreditCard)))
-	router.Handler(http.MethodPost, "/user/buy", authChain.Then(http.HandlerFunc(app.BuyProducts))) // add some prod to buy
+
+	router.Handler(http.MethodPost, "/user/buy", authChain.Then(http.HandlerFunc(app.BuyProducts)))
 	router.Handler(http.MethodGet, "/user/purchase-history", authChain.Then(http.HandlerFunc(app.GetPurchaseHistory)))
 
 	// Admin endpoints: Require admin privileges.

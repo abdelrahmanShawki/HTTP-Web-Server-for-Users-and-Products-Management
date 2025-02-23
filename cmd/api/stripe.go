@@ -17,6 +17,14 @@ import (
 // process payments
 func (app *application) processStripePayment(amount float64, userId int64) (string, error) {
 
+	/// only for testing handler purpose <> , set to false in production or using .env to pass it
+	testing := true
+	if testing {
+		app.logger.PrintInfo("testing variable is set to true please change it in production", map[string]string{"tetsing": "true"})
+		return "dummy_payment_id", nil
+	}
+	// end testing edit </>
+
 	// Convert amount to the smallest currency unit (cents for USD).
 	amountCents := int64(amount * 100)
 

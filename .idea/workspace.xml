@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77a8a89f-fc17-40ef-8992-83a47317435c" name="Changes" comment="inhancements" />
+    <list default="true" id="77a8a89f-fc17-40ef-8992-83a47317435c" name="Changes" comment="inhancements">
+      <change afterPath="$PROJECT_DIR$/env-example.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/api/creditcard.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/creditcard.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/api/middleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/middleware.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/api/product.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/product.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/api/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/routes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/api/stripe.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/stripe.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/api/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/users.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/data/products.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/data/products.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

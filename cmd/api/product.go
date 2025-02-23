@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"interviewTask/internal/data"
 	"interviewTask/internal/validator"
 	"net/http"
@@ -21,20 +22,26 @@ func (app application) ListProducts(w http.ResponseWriter, r *http.Request) {
 
 // admin handleres  ,, neet to refine some error handling later .
 func (app application) CreateProduct(w http.ResponseWriter, r *http.Request) {
-	// Retrieve the authenticated user from the request context.
-	user, ok := r.Context().Value("user").(*data.User)
+	// Retrieve the authenticated userId from the request context.
+	userId, ok := r.Context().Value(userContextKey).(int64)
 	if !ok {
+		app.logger.PrintInfo(fmt.Sprintf("userId is : %s ", userId), nil)
 		app.invalidCredentialsResponse(w, r)
 		return
 	}
 
-	// Check if the authenticated user has admin privileges.
+	user, err := app.models.Users.GetByID(userId)
+	if err != nil {
+		app.logger.PrintInfo(fmt.Sprintf("user in create product %s ", user), nil)
+		app.serverErrorResponse(w, r, err)
+	}
+	// Check if the authenticated userId has admin privileges.
 	if user.Role != "admin" {
 		app.accessDeniedResonse(w, r)
 		return
 	}
 
-	// Define a struct to capture the expected JSON input.
+	// Define a struct to capture the expected json .
 	var input struct {
 		Name           string  `json:"name"`
 		Description    string  `json:"description"`
@@ -42,8 +49,8 @@ func (app application) CreateProduct(w http.ResponseWriter, r *http.Request) {
 		InventoryCount int     `json:"inventory_count"`
 	}
 
-	// Read and decode the JSON request body.
-	err := app.readJson(w, r, &input)
+	// Read and decode the json request body.
+	err = app.readJson(w, r, &input)
 	if err != nil {
 		app.badRequestResponse(w, r, err)
 		return
@@ -85,7 +92,7 @@ func (app application) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Retrieve the authenticated user ID from the request context.
-	userID, ok := r.Context().Value("userID").(int64)
+	userID, ok := r.Context().Value(userContextKey).(int64)
 	if !ok {
 		app.invalidCredentialsResponse(w, r)
 		return
@@ -134,26 +141,23 @@ func (app application) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Validate and update the product fields if provided.
-	v := validator.New()
+	// assign new product values
 	if input.Name != nil {
-		v.Check(*input.Name != "", "name", "must be provided")
-		v.Check(len(*input.Name) <= 255, "name", "must not exceed 255 characters")
 		product.Name = *input.Name
 	}
 	if input.Description != nil {
-		v.Check(*input.Description != "", "description", "must be provided")
 		product.Description = *input.Description
 	}
 	if input.Price != nil {
-		v.Check(*input.Price > 0, "price", "must be a positive value")
 		product.Price = *input.Price
 	}
 	if input.InventoryCount != nil {
-		v.Check(*input.InventoryCount >= 0, "inventory_count", "must be a non-negative value")
 		product.InventoryCount = *input.InventoryCount
 	}
 
+	// Validate and update the product fields if provided.
+	v := validator.New()
+	data.ValidateProduct(v, product)
 	if !v.Valid() {
 		app.validationErrorResponse(w, r, v.Errors)
 		return
@@ -179,7 +183,7 @@ func (app application) DeleteProduct(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Retrieve the authenticated user ID from the request context.
-	userID, ok := r.Context().Value("userID").(int64)
+	userID, ok := r.Context().Value(userContextKey).(int64)
 	if !ok {
 		app.invalidCredentialsResponse(w, r)
 		return
@@ -220,7 +224,7 @@ func (app application) DeleteProduct(w http.ResponseWriter, r *http.Request) {
 
 func (app application) SalesFiltering(w http.ResponseWriter, r *http.Request) {
 	// Retrieve the authenticated user ID from the request context.
-	userID, ok := r.Context().Value("userID").(int64)
+	userID, ok := r.Context().Value(userContextKey).(int64)
 	if !ok {
 		app.invalidCredentialsResponse(w, r)
 		return

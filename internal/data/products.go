@@ -141,8 +141,10 @@ func (m ProductModel) SalesFiltering(from, to time.Time, username string) ([]Pro
 	args := []interface{}{from, to}
 
 	if username != "" {
-		query += ` AND u.name ILIKE $3`
-		args = append(args, fmt.Sprintf("%%%s%%", username))
+		username = validator.SanitizeString(username)
+		query += ` AND u.first_name ILIKE $3`
+		args = append(args, fmt.Sprintf("%%%s%%", username)) // %%%% to match any string contnais the username
+		// used with Ilike operator , Ilike perform case-insensitive pattern match
 	}
 
 	query += ` GROUP BY p.id, p.name ORDER BY total_revenue DESC`

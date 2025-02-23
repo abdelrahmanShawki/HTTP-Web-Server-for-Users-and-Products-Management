@@ -26,7 +26,7 @@ func (app *application) AddCreditCard(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Retrieve the authenticated user ID from the request context.
-	userID, ok := r.Context().Value("userID").(int64)
+	userID, ok := r.Context().Value(userContextKey).(int64)
 	if !ok {
 		app.invalidCredentialsResponse(w, r)
 		return
@@ -70,7 +70,7 @@ func (app *application) DeleteCreditCard(w http.ResponseWriter, r *http.Request)
 
 	// Retrieve the authenticated user ID from the request context.
 
-	userID, ok := r.Context().Value("userID").(int64)
+	userID, ok := r.Context().Value(userContextKey).(int64)
 	if !ok {
 		app.invalidCredentialsResponse(w, r)
 		return

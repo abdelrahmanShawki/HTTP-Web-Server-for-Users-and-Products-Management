@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"github.com/golang-jwt/jwt/v4"
 	"interviewTask/internal/authentication"
 	"net/http"
@@ -20,12 +21,15 @@ func (app *application) AuthMiddleware(next http.Handler) http.Handler {
 		// Extract the token from the Authorization header.
 		authHeader := r.Header.Get("Authorization")
 		if authHeader == "" {
+			app.logger.PrintInfo(fmt.Sprintf("authrization header is %s ", authHeader), nil)
 			app.invalidCredentialsResponse(w, r)
 			return
 		}
 
 		parts := strings.Split(authHeader, " ")
 		if len(parts) != 2 || parts[0] != "Bearer" {
+			app.logger.PrintInfo(fmt.Sprintf("parts is %s %s %s %s ", parts[0], parts[1], parts[2], parts[3]), nil)
+
 			app.invalidCredentialsResponse(w, r)
 			return
 		}
@@ -34,6 +38,7 @@ func (app *application) AuthMiddleware(next http.Handler) http.Handler {
 		// Validate the token.
 		token, err := auth.ValidateToken(tokenStr)
 		if err != nil || !token.Valid {
+			app.logger.PrintInfo(fmt.Sprintf("token is %s ", token), nil)
 			app.invalidCredentialsResponse(w, r)
 			return
 		}
@@ -41,6 +46,7 @@ func (app *application) AuthMiddleware(next http.Handler) http.Handler {
 		// Extract claims.
 		claims, ok := token.Claims.(jwt.MapClaims)
 		if !ok {
+			app.logger.PrintInfo("claims check ", nil)
 			app.invalidCredentialsResponse(w, r)
 			return
 		}
@@ -48,6 +54,8 @@ func (app *application) AuthMiddleware(next http.Handler) http.Handler {
 		// Extract the user ID (as "sub") and role.
 		sub, ok := claims["sub"].(float64)
 		if !ok {
+			app.logger.PrintInfo("claims sub", nil)
+
 			app.invalidCredentialsResponse(w, r)
 			return
 		}

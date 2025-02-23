@@ -1,0 +1,11 @@
+POSTGRES_USER=rescounts
+POSTGRES_PASSWORD=1111
+POSTGRES_DB=buy-db
+
+DSN_BUY_DB=postgres://rescounts:1111@db:5432/buy-db?sslmode=disable
+
+STRIPE_SECRET_KEY=rescounts-shawki001x
+JWT_SECRET=rescounts-auth-00x@canada-390$18d
+STRIPE_WEBHOOK_SECRET=rescounts-2222
+PORT=4000
+
