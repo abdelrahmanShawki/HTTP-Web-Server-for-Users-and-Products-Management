@@ -5,22 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="77a8a89f-fc17-40ef-8992-83a47317435c" name="Changes" comment="all functionality is almost done">
-      <change afterPath="$PROJECT_DIR$/cmd/api/stripe.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/api/creditcard.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/creditcard.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/api/errors.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/errors.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/api/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/api/middleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/middleware.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/api/product.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/product.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/api/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/routes.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/api/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/server.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/api/token.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/api/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/users.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/data/orders.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/data/orders.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/data/products.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/data/products.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/data/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/data/users.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/validator/validator.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/validator/validator.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/migrations/000004_create_orders_table.up.sql" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/000004_create_orders_table.up.sql" afterDir="false" />
     </list>
@@ -47,12 +46,12 @@
     &quot;assignee&quot;: &quot;abdelrahmanShawki&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/abdelrahmanShawki/Rescounts-task&quot;,
-    &quot;accountId&quot;: &quot;b7862c28-f9b6-4c21-8add-b8d638186d33&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/abdelrahmanShawki/HTTP-Web-Server-for-Users-and-Products-Management",
+    "accountId": "b7862c28-f9b6-4c21-8add-b8d638186d33"
   }
-}</component>
+}]]></component>
   <component name="GoLibraries">
     <option name="urls">
       <list>

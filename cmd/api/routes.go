@@ -20,16 +20,18 @@ func (app *application) routes() http.Handler {
 	// Admin routes need both authentication and an admin role check.
 	adminChain := alice.New(app.AuthMiddleware, app.RequireRole("admin"))
 
-	// The signup and login routes should remain public.
+	//  public routes
 	router.HandlerFunc(http.MethodPost, "/user/signup", app.SignUpUser)
 	router.HandlerFunc(http.MethodPost, "/user/login", app.LoginUser)
+	router.HandlerFunc(http.MethodGet, "/user/products", app.ListProducts) // not tested yet
+
+	//  stripe callback
 	router.HandlerFunc(http.MethodPost, "/stripe/webhook", app.stripeWebhookHandler)
 
 	// require authentication.
 	router.Handler(http.MethodPost, "/user/credit-card", authChain.Then(http.HandlerFunc(app.AddCreditCard)))
 	router.Handler(http.MethodDelete, "/user/credit-card", authChain.Then(http.HandlerFunc(app.DeleteCreditCard)))
-	router.Handler(http.MethodGet, "/user/products", authChain.Then(http.HandlerFunc(app.ListProducts)))
-	router.Handler(http.MethodPost, "/user/buy", authChain.Then(http.HandlerFunc(app.BuyProducts)))
+	router.Handler(http.MethodPost, "/user/buy", authChain.Then(http.HandlerFunc(app.BuyProducts))) // add some prod to buy
 	router.Handler(http.MethodGet, "/user/purchase-history", authChain.Then(http.HandlerFunc(app.GetPurchaseHistory)))
 
 	// Admin endpoints: Require admin privileges.

@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"interviewTask/internal/validator"
 	"time"
 )
 
@@ -166,4 +167,13 @@ func (m ProductModel) SalesFiltering(from, to time.Time, username string) ([]Pro
 	}
 
 	return sales, nil
+}
+
+func ValidateProduct(v *validator.Validator, product *Product) {
+	v.Check(product.Name != "", "name", "must be provided")
+	v.Check(len(product.Name) <= 255, "name", "must not exceed 255 characters")
+	v.Check(product.Description != "", "description", "must be provided")
+	v.Check(len(product.Description) > 40 && len(product.Description) < 1200, "description", "description must be between 40 and 1200 character long")
+	v.Check(product.Price > 0, "price", "must be a positive value")
+	v.Check(product.InventoryCount >= 0, "inventory_count", "must be a non-negative value")
 }

@@ -15,7 +15,7 @@ import (
 type User struct {
 	ID        int64     `json:"id"`
 	Email     string    `json:"email"`
-	Password  password  `json:"-"` // Omit from JSON responses.
+	Password  password  `json:"-"` // omit from JSON responses
 	Role      string    `json:"role"`
 	FirstName string    `json:"first_name"`
 	LastName  string    `json:"last_name"`
@@ -154,7 +154,6 @@ func ValidateUser(v *validator.Validator, user *User) {
 	// Check that role is either "user" or "admin".
 	v.Check(user.Role == "user" || user.Role == "admin", "role", "must be either user or admin")
 
-	// Optionally, validate name lengths.
 	if user.FirstName != "" {
 		v.Check(len(user.FirstName) <= 100, "first_name", "must not exceed 100 characters")
 	}

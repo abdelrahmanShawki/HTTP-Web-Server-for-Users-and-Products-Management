@@ -8,6 +8,13 @@ import (
 	"strings"
 )
 
+type contextKey string
+
+const (
+	userContextKey = contextKey("userId")
+	roleContextKey = contextKey("role")
+)
+
 func (app *application) AuthMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Extract the token from the Authorization header.
@@ -47,8 +54,8 @@ func (app *application) AuthMiddleware(next http.Handler) http.Handler {
 		role, _ := claims["role"].(string)
 
 		// Set the userID and role in the request context for downstream handlers.
-		ctx := context.WithValue(r.Context(), "userID", int64(sub))
-		ctx = context.WithValue(ctx, "role", role)
+		ctx := context.WithValue(r.Context(), userContextKey, int64(sub))
+		ctx = context.WithValue(ctx, roleContextKey, role)
 
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
@@ -58,7 +65,7 @@ func (app *application) RequireRole(requiredRole string) func(http.Handler) http
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			// Retrieve the role from the context.
-			role, ok := r.Context().Value("role").(string)
+			role, ok := r.Context().Value(roleContextKey).(string)
 			if !ok || role != requiredRole {
 				app.accessDeniedResonse(w, r)
 				return

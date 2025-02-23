@@ -7,6 +7,9 @@ import (
 	"time"
 )
 
+// - >> just a reminder ->>> when testing the addcreditcard from postman , make sure that token in the header matches
+// the token returned from last login to avoid any authentication errors .
+
 func (app *application) AddCreditCard(w http.ResponseWriter, r *http.Request) {
 	// Define a struct to capture the expected JSON payload.
 	var input struct {
@@ -23,15 +26,13 @@ func (app *application) AddCreditCard(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Retrieve the authenticated user ID from the request context.
-	// (Assumes a middleware has set the user id in the context under the key "userID".)
 	userID, ok := r.Context().Value("userID").(int64)
-
 	if !ok {
 		app.invalidCredentialsResponse(w, r)
 		return
 	}
 	// Parse the expiry date.
-	expiry, err := time.Parse("01 - 2006", input.ExpiryDate)
+	expiry, err := time.Parse("2006-01-02", input.ExpiryDate)
 	if err != nil {
 		app.badRequestResponse(w, r, err)
 		return

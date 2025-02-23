@@ -10,17 +10,15 @@ import (
 	"interviewTask/internal/jsonlog"
 	"log"
 	"os"
-	"sync"
 	"time"
 )
 
 const version = "1.0.0"
 
 type application struct {
-	config    config
-	logger    *jsonlog.Logger
-	models    data.Models
-	waitGroup sync.WaitGroup // graceful shutdown
+	config config
+	logger *jsonlog.Logger
+	models data.Models
 }
 
 func openDB(cfg config) (*sql.DB, error) {

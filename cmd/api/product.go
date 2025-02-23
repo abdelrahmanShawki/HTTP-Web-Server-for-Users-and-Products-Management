@@ -24,13 +24,13 @@ func (app application) CreateProduct(w http.ResponseWriter, r *http.Request) {
 	// Retrieve the authenticated user from the request context.
 	user, ok := r.Context().Value("user").(*data.User)
 	if !ok {
-		app.errorResponse(w, r, http.StatusUnauthorized, "unauthenticated")
+		app.invalidCredentialsResponse(w, r)
 		return
 	}
 
 	// Check if the authenticated user has admin privileges.
 	if user.Role != "admin" {
-		app.errorResponse(w, r, http.StatusForbidden, "access denied: admin privileges required")
+		app.accessDeniedResonse(w, r)
 		return
 	}
 
@@ -49,25 +49,20 @@ func (app application) CreateProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Validate the input.
-	v := validator.New()
-	v.Check(input.Name != "", "name", "must be provided")
-	v.Check(len(input.Name) <= 255, "name", "must not exceed 255 characters")
-	v.Check(input.Description != "", "description", "must be provided")
-	v.Check(input.Price > 0, "price", "must be a positive value")
-	v.Check(input.InventoryCount >= 0, "inventory_count", "must be a non-negative value")
-
-	if !v.Valid() {
-		app.validationErrorResponse(w, r, v.Errors)
-		return
-	}
-
 	// Create a new product instance.
 	product := &data.Product{
 		Name:           input.Name,
 		Description:    input.Description,
 		Price:          input.Price,
 		InventoryCount: input.InventoryCount,
+	}
+
+	// Validate the product.
+	v := validator.New()
+	data.ValidateProduct(v, product)
+	if !v.Valid() {
+		app.validationErrorResponse(w, r, v.Errors)
+		return
 	}
 
 	// Insert the product into the database.
@@ -92,7 +87,7 @@ func (app application) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	// Retrieve the authenticated user ID from the request context.
 	userID, ok := r.Context().Value("userID").(int64)
 	if !ok {
-		app.errorResponse(w, r, http.StatusUnauthorized, "unauthenticated")
+		app.invalidCredentialsResponse(w, r)
 		return
 	}
 
@@ -100,7 +95,7 @@ func (app application) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	user, err := app.models.Users.GetByID(userID)
 	if err != nil {
 		if errors.Is(err, data.ErrRecordNotFound) {
-			app.errorResponse(w, r, http.StatusUnauthorized, "unauthenticated")
+			app.invalidCredentialsResponse(w, r)
 		} else {
 			app.serverErrorResponse(w, r, err)
 		}
@@ -109,7 +104,7 @@ func (app application) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 
 	// Check if the user is an admin.
 	if user.Role != "admin" {
-		app.errorResponse(w, r, http.StatusForbidden, "access denied: admin privileges required")
+		app.accessDeniedResonse(w, r)
 		return
 	}
 
@@ -186,7 +181,7 @@ func (app application) DeleteProduct(w http.ResponseWriter, r *http.Request) {
 	// Retrieve the authenticated user ID from the request context.
 	userID, ok := r.Context().Value("userID").(int64)
 	if !ok {
-		app.errorResponse(w, r, http.StatusUnauthorized, "unauthenticated")
+		app.invalidCredentialsResponse(w, r)
 		return
 	}
 
@@ -194,7 +189,7 @@ func (app application) DeleteProduct(w http.ResponseWriter, r *http.Request) {
 	user, err := app.models.Users.GetByID(userID)
 	if err != nil {
 		if errors.Is(err, data.ErrRecordNotFound) {
-			app.errorResponse(w, r, http.StatusUnauthorized, "unauthenticated")
+			app.invalidCredentialsResponse(w, r)
 		} else {
 			app.serverErrorResponse(w, r, err)
 		}
@@ -203,7 +198,7 @@ func (app application) DeleteProduct(w http.ResponseWriter, r *http.Request) {
 
 	// Check if the user is an admin.
 	if user.Role != "admin" {
-		app.errorResponse(w, r, http.StatusForbidden, "access denied: admin privileges required")
+		app.accessDeniedResonse(w, r)
 		return
 	}
 
@@ -227,7 +222,7 @@ func (app application) SalesFiltering(w http.ResponseWriter, r *http.Request) {
 	// Retrieve the authenticated user ID from the request context.
 	userID, ok := r.Context().Value("userID").(int64)
 	if !ok {
-		app.errorResponse(w, r, http.StatusUnauthorized, "unauthenticated")
+		app.invalidCredentialsResponse(w, r)
 		return
 	}
 
@@ -235,7 +230,7 @@ func (app application) SalesFiltering(w http.ResponseWriter, r *http.Request) {
 	user, err := app.models.Users.GetByID(userID)
 	if err != nil {
 		if errors.Is(err, data.ErrRecordNotFound) {
-			app.errorResponse(w, r, http.StatusUnauthorized, "unauthenticated")
+			app.invalidCredentialsResponse(w, r)
 		} else {
 			app.serverErrorResponse(w, r, err)
 		}
@@ -244,7 +239,7 @@ func (app application) SalesFiltering(w http.ResponseWriter, r *http.Request) {
 
 	// Check if the user is an admin.
 	if user.Role != "admin" {
-		app.errorResponse(w, r, http.StatusForbidden, "access denied: admin privileges required")
+		app.invalidCredentialsResponse(w, r)
 		return
 	}
 
@@ -256,13 +251,13 @@ func (app application) SalesFiltering(w http.ResponseWriter, r *http.Request) {
 	username := q.Get("username") // optional filter
 
 	if fromStr == "" || toStr == "" {
-		app.errorResponse(w, r, http.StatusBadRequest, "both 'from' and 'to' query parameters are required in format YYYY-MM-DD")
+		app.badRequestResponse(w, r, err)
 		return
 	}
 
 	fromTime, err := time.Parse("2006-01-02", fromStr)
 	if err != nil {
-		app.errorResponse(w, r, http.StatusBadRequest, "invalid 'from' date format; expected YYYY-MM-DD")
+		app.badRequestResponse(w, r, err)
 		return
 	}
 
