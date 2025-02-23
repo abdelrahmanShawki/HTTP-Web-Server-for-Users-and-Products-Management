@@ -179,7 +179,8 @@ func (app application) BuyProducts(w http.ResponseWriter, r *http.Request) {
 	for _, p := range input.Products {
 		product, err := app.models.Product.GetByID(p.ID)
 		if err != nil {
-			app.errorResponse(w, r, http.StatusInternalServerError, "there is no product yet in the db")
+			app.logger.PrintInfo(fmt.Sprintf("error is: %s", err), nil)
+			app.serverErrorResponse(w, r, err)
 			return
 		}
 

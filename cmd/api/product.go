@@ -46,7 +46,7 @@ func (app application) CreateProduct(w http.ResponseWriter, r *http.Request) {
 		Name           string  `json:"name"`
 		Description    string  `json:"description"`
 		Price          float64 `json:"price"`
-		InventoryCount int     `json:"inventory_count"`
+		InventoryCount int     `json:"Quantity"`
 	}
 
 	// Read and decode the json request body.
@@ -120,7 +120,7 @@ func (app application) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 		Name           *string  `json:"name"`
 		Description    *string  `json:"description"`
 		Price          *float64 `json:"price"`
-		InventoryCount *int     `json:"inventory_count"`
+		InventoryCount *int     `json:"Quantity"`
 	}
 
 	// Read and decode the JSON request body.

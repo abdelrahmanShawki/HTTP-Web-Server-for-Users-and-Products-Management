@@ -13,7 +13,6 @@
       <change beforePath="$PROJECT_DIR$/cmd/api/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/routes.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/api/stripe.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/stripe.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/api/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/users.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/data/products.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/data/products.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

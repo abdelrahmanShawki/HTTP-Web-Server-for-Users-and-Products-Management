@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "54955b61-4de2-473c-b5ba-9b0d8951f507",
+		"_postman_id": "158e01e1-06ad-4550-92ee-88dcde9e89e8",
 		"name": "rescounts- task",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "38174779"
@@ -9,16 +9,59 @@
 		{
 			"name": "SignUpUser",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"first_name\": \"abdo2\",\n  \"email\": \"abdo2@example.com\",\n  \"role\": \"admin\",\n  \"password\": \"securePassword123\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/user/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"user",
+						"signup"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "LogInUser",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"abdo2@example.com\",\n  \"password\": \"securePassword123\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000//user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"",
+						"user",
+						"login"
+					]
+				}
 			},
 			"response": []
 		},
@@ -26,39 +69,159 @@
 			"name": "List all products",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/user/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"user",
+						"products"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "addCreditCard",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDA2MTE4MTAsImlhdCI6MTc0MDM1MjYxMCwicm9sZSI6ImFkbWluIiwic3ViIjozfQ.ni0RieG97rgaQty0EPkUFIHv-IXULyIiO2QwNh2fHhE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"card_token\": \"tok_visa_123456\",\n  \"expiry_date\": \"2025-12-31\",\n  \"cardholder_name\": \"John Doe\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/user/credit-card",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"user",
+						"credit-card"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "deleteCreditCard",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDA2MTE4MTAsImlhdCI6MTc0MDM1MjYxMCwicm9sZSI6ImFkbWluIiwic3ViIjozfQ.ni0RieG97rgaQty0EPkUFIHv-IXULyIiO2QwNh2fHhE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\": 1}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/user/credit-card",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"user",
+						"credit-card"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "app.BuyProducts",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDA2MDg4MjgsImlhdCI6MTc0MDM0OTYyOCwicm9sZSI6ImFkbWluIiwic3ViIjozfQ.ikWCu570K76PxVsa1fzvb0vrf7o2BD30SRRGCBZXPjc",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"products\": [\n    {\n      \"id\": 3,\n      \"quantity\": 1\n    },\n    {\n      \"id\": 2,\n      \"quantity\": 1\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/user/buy",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"user",
+						"buy"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "CreateProduct",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDA2MDg4MjgsImlhdCI6MTc0MDM0OTYyOCwicm9sZSI6ImFkbWluIiwic3ViIjozfQ.ikWCu570K76PxVsa1fzvb0vrf7o2BD30SRRGCBZXPjc",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \" Product 44 \",\n  \"description\": \"p2222222222222222222222222 description , , ,xxx----40----12000 chars.\",\n  \"price\": 19.99,\n  \"inventory_count\": 50\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/admin/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"admin",
+						"products"
+					]
+				}
 			},
 			"response": []
 		},
@@ -66,23 +229,98 @@
 			"name": "getPurchaseHistory",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDA2MDg4MjgsImlhdCI6MTc0MDM0OTYyOCwicm9sZSI6ImFkbWluIiwic3ViIjozfQ.ikWCu570K76PxVsa1fzvb0vrf7o2BD30SRRGCBZXPjc",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/user/purchase-history",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"user",
+						"purchase-history"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "updateProduct",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDA2MDg4MjgsImlhdCI6MTc0MDM0OTYyOCwicm9sZSI6ImFkbWluIiwic3ViIjozfQ.ikWCu570K76PxVsa1fzvb0vrf7o2BD30SRRGCBZXPjc",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Sample Product xxx\",\n  \"description\": \"A detailed description of the sample product.\",\n  \"Quantity\": 100\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000//admin/products/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"",
+						"admin",
+						"products",
+						"2"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "deleteProduct",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDA2MDg4MjgsImlhdCI6MTc0MDM0OTYyOCwicm9sZSI6ImFkbWluIiwic3ViIjozfQ.ikWCu570K76PxVsa1fzvb0vrf7o2BD30SRRGCBZXPjc",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":2}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/admin/products/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"admin",
+						"products",
+						"2"
+					]
+				}
 			},
 			"response": []
 		},
@@ -90,7 +328,39 @@
 			"name": "salesFilter",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDA2MDg4MjgsImlhdCI6MTc0MDM0OTYyOCwicm9sZSI6ImFkbWluIiwic3ViIjozfQ.ikWCu570K76PxVsa1fzvb0vrf7o2BD30SRRGCBZXPjc",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/admin/sales?from=2025-01-01&to=2025-03-31&username=abdo2\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"admin",
+						"sales"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "2025-01-01"
+						},
+						{
+							"key": "to",
+							"value": "2025-03-31"
+						},
+						{
+							"key": "username",
+							"value": "abdo2\n"
+						}
+					]
+				}
 			},
 			"response": []
 		}
