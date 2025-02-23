@@ -4,25 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77a8a89f-fc17-40ef-8992-83a47317435c" name="Changes" comment="all functionality is almost done">
-      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/api/creditcard.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/creditcard.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/api/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/api/middleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/middleware.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/api/product.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/product.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/api/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/routes.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/api/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/server.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/api/token.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/data/orders.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/data/orders.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/data/products.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/data/products.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/data/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/data/users.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/validator/validator.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/validator/validator.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/000004_create_orders_table.up.sql" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/000004_create_orders_table.up.sql" afterDir="false" />
-    </list>
+    <list default="true" id="77a8a89f-fc17-40ef-8992-83a47317435c" name="Changes" comment="inhancements" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -147,7 +129,8 @@
     <MESSAGE value="initial commit , &#10;errors , validator , server , logjson , user_end points" />
     <MESSAGE value="Initial commit" />
     <MESSAGE value="all functionality is almost done" />
-    <option name="LAST_COMMIT_MESSAGE" value="all functionality is almost done" />
+    <MESSAGE value="inhancements" />
+    <option name="LAST_COMMIT_MESSAGE" value="inhancements" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
