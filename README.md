@@ -41,8 +41,7 @@ Before running this project, ensure you have:
 Clone the repository and navigate into the project folder:
 
 ```sh
-git clone https://github.com/YOUR_GITHUB_USERNAME/rescounts-backend.git
-cd rescounts-backend
+git clone https://github.com/abdelrahmanShawki/HTTP-Web-Server-for-Users-and-Products-Management
 ```
 
 ### 1️⃣ Setup Environment Variables
@@ -134,7 +133,9 @@ docker logs -f app
 | `POSTGRES_PASSWORD`    | PostgreSQL password |
 | `POSTGRES_DB`          | PostgreSQL database name |
 
----
+
+
+
 
 ## 🛠️ Testing the API (Postman)
 
