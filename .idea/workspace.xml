@@ -5,14 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="77a8a89f-fc17-40ef-8992-83a47317435c" name="Changes" comment="inhancements">
-      <change afterPath="$PROJECT_DIR$/env-example.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmd/api/middleware_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/assert/assert.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/api/creditcard.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/creditcard.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/api/middleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/middleware.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/api/product.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/product.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/api/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/routes.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/api/stripe.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/stripe.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rescounts- task.postman_collection.json" beforeDir="false" afterPath="$PROJECT_DIR$/rescounts- task.postman_collection.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +73,7 @@
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   },
   "keyToStringList": {
     "DatabaseDriversLRU": [
@@ -86,6 +83,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/cmd/api/testMiddleware" />
       <recent name="$PROJECT_DIR$/cmd/api" />
       <recent name="$PROJECT_DIR$/cmd/api/handlers" />
       <recent name="$PROJECT_DIR$" />
