@@ -28,8 +28,6 @@ func (app *application) AuthMiddleware(next http.Handler) http.Handler {
 
 		parts := strings.Split(authHeader, " ")
 		if len(parts) != 2 || parts[0] != "Bearer" {
-			app.logger.PrintInfo(fmt.Sprintf("parts is %s %s %s %s ", parts[0], parts[1], parts[2], parts[3]), nil)
-
 			app.invalidCredentialsResponse(w, r)
 			return
 		}
@@ -81,4 +79,19 @@ func (app *application) RequireRole(requiredRole string) func(http.Handler) http
 			next.ServeHTTP(w, r)
 		})
 	}
+}
+
+func (app *application) RecoverMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		defer func() {
+			if err := recover(); err != nil {
+				app.logger.PrintError(fmt.Errorf("%v", err), map[string]string{
+					"request_method": r.Method,
+					"request_url":    r.URL.String(),
+				})
+				app.serverErrorResponse(w, r, fmt.Errorf("internal server error"))
+			}
+		}()
+		next.ServeHTTP(w, r)
+	})
 }

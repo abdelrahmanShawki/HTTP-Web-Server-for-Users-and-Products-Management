@@ -16,9 +16,9 @@ func (app *application) routes() http.Handler {
 
 	// Create two chains:
 	// All routes need authentication.
-	authChain := alice.New(app.AuthMiddleware)
+	authChain := alice.New(app.RecoverMiddleware, app.AuthMiddleware)
 	// Admin routes need both authentication and an admin role check.
-	adminChain := alice.New(app.AuthMiddleware, app.RequireRole("admin"))
+	adminChain := alice.New(app.RecoverMiddleware, app.AuthMiddleware, app.RequireRole("admin"))
 
 	//  public routes
 	router.HandlerFunc(http.MethodPost, "/user/signup", app.SignUpUser)

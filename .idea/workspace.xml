@@ -12,7 +12,7 @@
       <change beforePath="$PROJECT_DIR$/cmd/api/product.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/product.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/api/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/routes.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/api/stripe.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/stripe.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/api/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/users.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rescounts- task.postman_collection.json" beforeDir="false" afterPath="$PROJECT_DIR$/rescounts- task.postman_collection.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
