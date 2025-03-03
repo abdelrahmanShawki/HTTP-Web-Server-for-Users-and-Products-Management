@@ -189,66 +189,70 @@ func TestAuthMiddleware(t *testing.T) {
 
 func TestRequireRole(t *testing.T) {
 	dLogger := newDummyLogger()
+	os.Setenv("JWT_SECRET", "testsecret")
 	app := &testApplication{
 		application: application{
 			logger: dLogger.Logger,
 		},
 	}
-	// dummy next handler writes "Role OK"
+
 	nextHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("Role OK"))
 	})
-	// Wrap with RequireRole middleware that requires "admin" role.
-	requireAdmin := app.RequireRole("admin")(nextHandler)
 
-	// Create a request with a valid token for a non-admin user.
-	token, err := auth.GenerateToken(456, "user")
-	if err != nil {
-		t.Fatalf("failed to generate token: %v", err)
+	middleware := app.AuthMiddleware(app.RequireRole("admin")(nextHandler))
+
+	tTable := []struct {
+		name           string
+		tokenRole      string
+		tokenID        int
+		expectedStatus int
+		expectedBody   string
+	}{
+		{
+			name:           "Non-admin user",
+			tokenRole:      "user",
+			tokenID:        456,
+			expectedStatus: http.StatusForbidden,
+			expectedBody:   "access denied",
+		},
+		{
+			name:           "Admin user",
+			tokenRole:      "admin",
+			tokenID:        789,
+			expectedStatus: http.StatusOK,
+			expectedBody:   "Role OK",
+		},
 	}
-	req := httptest.NewRequest("GET", "/", nil)
-	req.Header.Set("Authorization", "Bearer "+token)
 
-	rr := httptest.NewRecorder()
-	// To simulate the effect of the AuthMiddleware, manually add role to the context.
-	// In real usage, AuthMiddleware would add the role to the context.
-	ctx := req.Context()
-	ctx = contextWithRole(ctx, "user")
-	req = req.WithContext(ctx)
+	for _, tCase := range tTable {
+		t.Run(tCase.name, func(t *testing.T) {
+			token, err := auth.GenerateToken(int64(tCase.tokenID), tCase.tokenRole)
+			if err != nil {
+				t.Fatalf("failed to generate token: %v", err)
+			}
 
-	requireAdmin.ServeHTTP(rr, req)
-	assert.Equal(t, http.StatusText(http.StatusForbidden), http.StatusText(rr.Code))
+			req := httptest.NewRequest("GET", "/", nil)
+			req.Header.Set("Authorization", "Bearer "+token)
 
-	// Now test with an admin token.
-	adminToken, err := auth.GenerateToken(789, "admin")
-	if err != nil {
-		t.Fatalf("failed to generate admin token: %v", err)
+			rr := httptest.NewRecorder()
+			middleware.ServeHTTP(rr, req)
+
+			assert.Equal(t, tCase.expectedStatus, rr.Code)
+			assert.Contains(t, rr.Body.String(), tCase.expectedBody)
+		})
 	}
-	req = httptest.NewRequest("GET", "/", nil)
-	req.Header.Set("Authorization", "Bearer "+adminToken)
-	// Manually add the role "admin" to context.
-	ctx = req.Context()
-	ctx = contextWithRole(ctx, "admin")
-	req = req.WithContext(ctx)
-
-	rr = httptest.NewRecorder()
-	requireAdmin.ServeHTTP(rr, req)
-	assert.Equal(t, http.StatusText(http.StatusOK), http.StatusText(rr.Code))
-	assert.Contains(t, rr.Body.String(), "Role OK")
-}
-
-// contextWithRole is a helper to add a role to a context (like AuthMiddleware does).
-func contextWithRole(ctx context.Context, role string) context.Context {
-	return context.WithValue(ctx, roleContextKey, role)
 }
 
 // /-----------////////
 func TestRecoverMiddleware(t *testing.T) {
-	dLogger := newDummyLogger()
+	var logBuffer bytes.Buffer
+	logger := jsonlog.New(&logBuffer, jsonlog.LevelInfo)
+
 	app := &testApplication{
 		application: application{
-			logger: dLogger.Logger,
+			logger: logger,
 		},
 	}
 
@@ -256,12 +260,14 @@ func TestRecoverMiddleware(t *testing.T) {
 	panicHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		panic("something went wrong")
 	})
+
 	recoverMiddleware := app.RecoverMiddleware(panicHandler)
 
 	req := httptest.NewRequest("GET", "/", nil)
 	rr := httptest.NewRecorder()
 
 	recoverMiddleware.ServeHTTP(rr, req)
+
 	assert.Equal(t, http.StatusText(http.StatusInternalServerError), http.StatusText(rr.Code))
 	// Optionally, check that the response body contains the error message.
 	body, err := io.ReadAll(rr.Body)
