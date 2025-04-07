@@ -1,4 +1,3 @@
-# Rescounts Backend Task
 
 This project is an **HTTP web server** for managing **users and products**, developed in **Go**. The server provides a set of RESTful APIs for **user authentication, product management, payment processing via Stripe, and order history retrieval**.
 
